@@ -54,6 +54,7 @@ void InitStage(int pt){
 			g_hx = 250;
 			g_hy = 255;
 		}
+
 	}
 	else if (pt == Village){
 		sprintf_s(buf, 256, "media\\village.txt");
@@ -188,8 +189,6 @@ void DrawHero(int pt){
 		}
 		break;
 	case Field:
-//		AtariInfo atari = CheckFieldObstacle(hx, hy, g_hx);
-
 		if (g_stagedata.hero_direction == NORTH){
 			if (atari.UR == TRUE || atari.UL == TRUE){
 				hy = g_hy;
@@ -205,6 +204,11 @@ void DrawHero(int pt){
 			if (atari.DL == TRUE || atari.UL == TRUE)	hx = g_hx;
 		}
 
+		if(CheckMapSwitching(hx, hy)){
+			PT = Village;
+			InitStage(PT);
+		}
+
 		//if (g_mapdata_field[(int)hy / IMG_CHIPSIZE][(int)hx / IMG_CHIPSIZE] < 5){
 		//	clsDx();
 		//	printfDx("通行可能\n");
@@ -212,10 +216,10 @@ void DrawHero(int pt){
 		//	}
 		//}
 		//else{
-			/*if (g_mapdata_field[(int)hy / IMG_CHIPSIZE][(int)hx / IMG_CHIPSIZE] == 11){
-				PT = Interior;
-				InitStage(PT);
-			}*/
+		//if (g_mapdata_field[(int)hy / IMG_CHIPSIZE][(int)hx / IMG_CHIPSIZE] == 11){
+		//	PT = Interior;
+		//	InitStage(PT);
+		//}
 		//	else{ hx = g_hx; }
 		//	clsDx();
 		//	printfDx("障害物\n");
@@ -519,9 +523,45 @@ BOOL _CheckBlockSub(float x, float y){
 	if ((mx < 0) || (mx >= SCR_WIDTH) || (my >= SCR_HEIGHT) || (my < 0)){
 		return FALSE;
 	}
+	if (g_mapdata_field[my][mx] == 11){
+		return FALSE;
+	}
 	if (g_mapdata_field[my][mx] >= 5) return TRUE;
 	return FALSE;
 }
+
+BOOL _CheckMapSwitching(float x, float y){
+	int mx = (int)(x / IMG_CHIPSIZE);
+	int my = (int)(y / IMG_CHIPSIZE);
+	//マップの範囲外ならFALSE
+	if ((mx < 0) || (mx >= SCR_WIDTH) || (my >= SCR_HEIGHT) || (my < 0)){
+		return FALSE;
+	}
+	if (g_mapdata_field[my][mx] == 11){
+		return TRUE;
+	}
+}
+
+BOOL CheckMapSwitching(float x, float y){
+	int mx = (int)(x / IMG_CHIPSIZE);
+	int my = (int)(y / IMG_CHIPSIZE);
+	//マップの範囲外ならFALSE
+	if ((mx < 0) || (mx >= SCR_WIDTH) || (my >= SCR_HEIGHT) || (my < 0)){
+		return FALSE;
+	}
+	if (g_mapdata_field[my + 1][mx] == 11){
+		return TRUE;
+	}
+	if (g_mapdata_interior[my + 1][mx] == 11){
+		return TRUE;
+	}
+	if (g_mapdata_village[my + 1][mx] == 11){
+		return TRUE;
+	}
+	return FALSE;
+
+}
+
 AtariInfo CheckFieldObstacle(float x, float y){
 	AtariInfo result;
 	result.UL = _CheckBlockSub(x , y);
