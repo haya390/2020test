@@ -190,7 +190,7 @@ void DrawHero(int pt){
 //		AtariInfo atari = CheckFieldObstacle(hx, hy, g_hx);
 
 		if (g_stagedata.hero_direction == NORTH){
-			if (atari.UR == TRUE || atari.UR == TRUE){
+			if (atari.UR == TRUE || atari.UL == TRUE){
 				hy = g_hy;
 			}
 		}
@@ -198,7 +198,7 @@ void DrawHero(int pt){
 			if (atari.DR == TRUE || atari.UR == TRUE)	hx = g_hx;
 		}
 		else if (g_stagedata.hero_direction == SOUTH){
-			if (atari.DL == TRUE || atari.DL == TRUE)	hy = g_hy;
+			if (atari.DL == TRUE || atari.DR == TRUE)	hy = g_hy;
 		}
 		else if (g_stagedata.hero_direction == WEST){
 			if (atari.DL == TRUE || atari.UL == TRUE)	hx = g_hx;
@@ -520,9 +520,9 @@ BOOL _CheckBlockSub(float x, float y){
 }
 AtariInfo CheckFieldObstacle(float x, float y){
 	AtariInfo result;
-	result.UL = _CheckBlockSub(x, y);
-	result.UR = _CheckBlockSub(x + IMG_CHIPSIZE - 1, y);
-	result.DL = _CheckBlockSub(x, y + IMG_CHIPSIZE - 1);
-	result.DR = _CheckBlockSub(x + IMG_CHIPSIZE - 1, y + IMG_CHIPSIZE - 1);
+	result.UL = _CheckBlockSub(x , y);
+	result.UR = _CheckBlockSub(x + IMG_CHIPSIZE - 3, y);
+	result.DL = _CheckBlockSub(x, y + IMG_CHIPSIZE - 3);
+	result.DR = _CheckBlockSub(x + IMG_CHIPSIZE - 3, y + IMG_CHIPSIZE - 3);
 	return result;
 }
