@@ -212,10 +212,10 @@ void DrawHero(int pt){
 		//	}
 		//}
 		//else{
-		//	if (g_mapdata_field[(int)hy / IMG_CHIPSIZE][(int)hx / IMG_CHIPSIZE] == 11){
-		//		PT = Interior;
-		//		InitStage(PT);
-		//	}
+			/*if (g_mapdata_field[(int)hy / IMG_CHIPSIZE][(int)hx / IMG_CHIPSIZE] == 11){
+				PT = Interior;
+				InitStage(PT);
+			}*/
 		//	else{ hx = g_hx; }
 		//	clsDx();
 		//	printfDx("障害物\n");
@@ -247,9 +247,8 @@ void DrawHero(int pt){
 	//スクロール補正
 	if (hx - g_stagedata.scrollx > SCR_X_RIGHT || g_stagedata.scrollx < SCR_WIDTH){
 //		if (hx - g_stagedata.scrollx > SCR_X_RIGHT && g_stagedata.scrollx < IMG_CHIPSIZE * (MAP_FIELD_WIDTH - 1)){
-		if (g_stagedata.scrollx < 1960){
-		g_stagedata.scrollx += (hx - g_hx);
-
+		if (g_stagedata.scrollx < 1960/*画面のスクロール右端*/ && g_stagedata.scrollx < 0){
+			g_stagedata.scrollx += (hx - g_hx);
 		}
 	}
 	if (hx - g_stagedata.scrollx < SCR_X_LEFT  && g_stagedata.scrollx > 0){
