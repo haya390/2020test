@@ -245,8 +245,12 @@ void DrawHero(int pt){
 	//}
 
 	//ƒXƒNƒ[ƒ‹•â³
-	if (hx - g_stagedata.scrollx > SCR_X_RIGHT && g_stagedata.scrollx < IMG_CHIPSIZE * (MAP_FIELD_WIDTH-1)){
+	if (hx - g_stagedata.scrollx > SCR_X_RIGHT || g_stagedata.scrollx < SCR_WIDTH){
+//		if (hx - g_stagedata.scrollx > SCR_X_RIGHT && g_stagedata.scrollx < IMG_CHIPSIZE * (MAP_FIELD_WIDTH - 1)){
+		if (g_stagedata.scrollx < 1960){
 		g_stagedata.scrollx += (hx - g_hx);
+
+		}
 	}
 	if (hx - g_stagedata.scrollx < SCR_X_LEFT  && g_stagedata.scrollx > 0){
 		g_stagedata.scrollx += (hx - g_hx);
