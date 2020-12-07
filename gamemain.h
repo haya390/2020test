@@ -1,4 +1,4 @@
-#ifndef __GAMEMAIN_H__ 
+ï»¿#ifndef __GAMEMAIN_H__ 
 #define __GAMEMAIN_H__
 
 #include <DxLib.h>
@@ -10,14 +10,14 @@
 #define MAP_INTERIOR_HEIGHT 11
 #define MAP_VILLAGE_WIDTH 19
 #define MAP_VILLAGE_HEIGHT 11
-#define MAP_FIELD_WIDTH 70 //ƒtƒB[ƒ‹ƒh”z—ñ”
+#define MAP_FIELD_WIDTH 70 //ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰é…åˆ—æ•°
 #define MAP_FIELD_HEIGHT 30
-#define SCR_WIDTH 800  //‰æ–ÊƒTƒCƒY
-#define SCR_HEIGHT 600 //‰æ–ÊƒTƒCƒY
-#define SCR_X_LEFT  100		//ƒXƒNƒ[ƒ‹ˆÊ’u
-#define SCR_X_RIGHT 500		//ƒXƒNƒ[ƒ‹ˆÊ’u
-#define SCR_Y_DOWN  400		//ƒXƒNƒ[ƒ‹ˆÊ’u
-#define SCR_Y_UP	100		//ƒXƒNƒ[ƒ‹ˆÊ’u
+#define SCR_WIDTH 800  //ç”»é¢ã‚µã‚¤ã‚º
+#define SCR_HEIGHT 600 //ç”»é¢ã‚µã‚¤ã‚º
+#define SCR_X_LEFT  100		//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ä½ç½®
+#define SCR_X_RIGHT 500		//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ä½ç½®
+#define SCR_Y_DOWN  400		//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ä½ç½®
+#define SCR_Y_UP	100		//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ä½ç½®
 
 #define ANIM_RATE 4
 
@@ -61,9 +61,9 @@ struct CharaData{
 	float EXP;
 	int HP;
 	int MP;
-	int ATK; /*‚±‚¤‚°‚«*/
-	int AGI; /*‘f‘‚³*/
-	int EDU; /*‚©‚µ‚±‚³*/
+	int ATK; /*ã“ã†ã’ã*/
+	int AGI; /*ç´ æ—©ã•*/
+	int EDU; /*ã‹ã—ã“ã•*/
 };
 
 struct Stagedata{
@@ -79,14 +79,26 @@ enum News{
 };
 
 struct DataFrame{
-	int ecf;/*Œø‰Ê•ª—Ş*/
-	float eff;/*Œø—Í*/
-	char epn[20];/*à–¾*/
+	int ecf;/*åŠ¹æœåˆ†é¡*/
+	float eff;/*åŠ¹åŠ›*/
+	char epn[20];/*èª¬æ˜*/
 };
 
 struct AtariInfo{
 	BOOL UL, UR, DL, DR;
 };
+
+struct PositionInformation{
+	int int2vil_x;
+	int int2vil_y;
+	int vil2int_x;
+	int vil2int_y;
+	int vil2fie_x;
+	int vil2fie_y;
+	int fie_x;
+	int fie_y;
+};
+extern PositionInformation g_posinfo;
 
 
 void GameMain();
@@ -94,5 +106,8 @@ void InitStage(int pt);
 void DrawHero(int pt);
 void DrawMap(int pt);
 AtariInfo CheckFieldObstacle(float x, float y);
+BOOL CheckMapSwitching(float x, float y);
+
+
 
 #endif
