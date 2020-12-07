@@ -21,6 +21,8 @@ int g_mapdata_village[MAP_VILLAGE_HEIGHT][MAP_VILLAGE_WIDTH];
 int g_mapdata_field[MAP_FIELD_HEIGHT][MAP_FIELD_WIDTH];
 //char g_automap[MAP_HEIGHT][MAP_WIDTH];
 
+
+
 void GameMain(){
 
 	DrawMap(PT);
@@ -163,11 +165,17 @@ void DrawHero(int pt){
 			}
 		}
 		else{
-			if (g_mapdata_interior[(int)hy / IMG_CHIPSIZE][(int)hx / IMG_CHIPSIZE] == 11){
+			if (CheckMapSwitching(hx, hy, PT)){
 				PT = Village;
 				InitStage(PT);
 			}
-			else{ hx = g_hx; }
+
+			
+			//if (g_mapdata_interior[(int)hy / IMG_CHIPSIZE][(int)hx / IMG_CHIPSIZE] == 11){
+			//	PT = Village;
+			//	InitStage(PT);
+			//}
+			//else{ hx = g_hx; }
 			clsDx();
 			printfDx("障害物です");
 		}
@@ -178,11 +186,15 @@ void DrawHero(int pt){
 			}
 		}
 		else{
-			if (g_mapdata_village[(int)hy / IMG_CHIPSIZE][(int)hx / IMG_CHIPSIZE] == 11){
+			if (CheckMapSwitching(hx, hy, PT)){
 				PT = Field;
 				InitStage(PT);
 			}
-			else{ hx = g_hx; }
+			//if (g_mapdata_village[(int)hy / IMG_CHIPSIZE][(int)hx / IMG_CHIPSIZE] == 11){
+			//	PT = Field;
+			//	InitStage(PT);
+			//}
+			//else{ hx = g_hx; }
 
 			clsDx();
 			printfDx("障害物です");
@@ -204,7 +216,7 @@ void DrawHero(int pt){
 			if (atari.DL == TRUE || atari.UL == TRUE)	hx = g_hx;
 		}
 
-		if(CheckMapSwitching(hx, hy)){
+		if(CheckMapSwitching(hx, hy, PT)){
 			PT = Village;
 			InitStage(PT);
 		}
@@ -530,7 +542,7 @@ BOOL _CheckBlockSub(float x, float y){
 	return FALSE;
 }
 
-BOOL _CheckMapSwitching(float x, float y){
+BOOL _CheckMapSwitching(float x, float y){	//使ってない
 	int mx = (int)(x / IMG_CHIPSIZE);
 	int my = (int)(y / IMG_CHIPSIZE);
 	//マップの範囲外ならFALSE
@@ -542,20 +554,20 @@ BOOL _CheckMapSwitching(float x, float y){
 	}
 }
 
-BOOL CheckMapSwitching(float x, float y){
+BOOL CheckMapSwitching(float x, float y, int pt){
 	int mx = (int)(x / IMG_CHIPSIZE);
 	int my = (int)(y / IMG_CHIPSIZE);
 	//マップの範囲外ならFALSE
-	if ((mx < 0) || (mx >= SCR_WIDTH) || (my >= SCR_HEIGHT) || (my < 0)){
-		return FALSE;
-	}
-	if (g_mapdata_field[my + 1][mx] == 11){
+	//if ((mx < 0) || (mx >= SCR_WIDTH) || (my >= SCR_HEIGHT) || (my < 0)){
+	//	return FALSE;
+	//}
+	if (g_mapdata_field[my + 1][mx] == 11 && pt == Field){
 		return TRUE;
 	}
-	if (g_mapdata_interior[my + 1][mx] == 11){
+	if (g_mapdata_interior[my][mx] == 11 && pt == Interior){
 		return TRUE;
 	}
-	if (g_mapdata_village[my + 1][mx] == 11){
+	if (g_mapdata_village[my + 1][mx] == 11 && pt == Village){
 		return TRUE;
 	}
 	return FALSE;
