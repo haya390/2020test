@@ -94,6 +94,6 @@ void InitStage(int pt);
 void DrawHero(int pt);
 void DrawMap(int pt);
 AtariInfo CheckFieldObstacle(float x, float y);
-BOOL CheckMapSwitching(float x, float y);
+BOOL CheckMapSwitching(float x, float y, int pt);
 
 #endif
