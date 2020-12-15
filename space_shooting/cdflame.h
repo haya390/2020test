@@ -56,6 +56,8 @@ extern int hx,ex;
 extern int hy,ey;
 extern int KEY_KAISU;
 
+extern int g_last_bullet;
+
 void syokika();
 void Init_ENEMY1(int, int, int);
 void Init_ENEMY2(int, int, int);
