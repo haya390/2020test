@@ -104,27 +104,27 @@ void DrawBullet(int flag){
 	if (flag == E){
 
 	}else if (flag == P){
-		for (int i = 0; HERO.BULLET[i].living == TRUE; i++){
-			switch (HERO.BULLET[i].type)
-			{
-			case red:
-				DrawGraph(HERO.BULLET[i].x, HERO.BULLET[i].y - 1950, HERO.BULLET[i].BULLET_IMAGE, TRUE);
-				break;
-			case blue:
-				DrawGraph(HERO.BULLET[i].x, HERO.BULLET[i].y - 1950, HERO.BULLET[i].BULLET_IMAGE, TRUE);
-				break;
-			case green:
-				DrawGraph(HERO.BULLET[i].x, HERO.BULLET[i].y - 1950, HERO.BULLET[i].BULLET_IMAGE, TRUE);
-				break;
-			case beam:
-				DrawExtendGraph(HERO.BULLET[i].x,HERO.BULLET[i].y - 1950,HERO.BULLET[i].x + IMGSIZE,HERO.BULLET[i].y - 1950 + IMGSIZE,HERO.BULLET[i].BULLET_IMAGE,TRUE);
-				break;
-			}
-			if (HERO.BULLET[i].living == TRUE && HERO.BULLET[i].SBP - 800 > HERO.BULLET[i].y){
-//				HERO.BULLET[i].living = FALSE;
-				_Init_PLAYER_BULLET(i);
-			}
-			if(HERO.BULLET[i].living == TRUE){
+		for (int i = 0; HERO.BULLET[i].living < 20 ; i++){
+			//for (int i = 0; HERO.BULLET[i].living == TRUE; i++){
+			if (HERO.BULLET[i].living == TRUE){
+				switch (HERO.BULLET[i].type)
+				{
+				case red:
+					DrawGraph(HERO.BULLET[i].x, HERO.BULLET[i].y - 1950, HERO.BULLET[i].BULLET_IMAGE, TRUE);
+					break;
+				case blue:
+					DrawGraph(HERO.BULLET[i].x, HERO.BULLET[i].y - 1950, HERO.BULLET[i].BULLET_IMAGE, TRUE);
+					break;
+				case green:
+					DrawGraph(HERO.BULLET[i].x, HERO.BULLET[i].y - 1950, HERO.BULLET[i].BULLET_IMAGE, TRUE);
+					break;
+				case beam:
+					DrawExtendGraph(HERO.BULLET[i].x, HERO.BULLET[i].y - 1950, HERO.BULLET[i].x + IMGSIZE, HERO.BULLET[i].y - 1950 + IMGSIZE, HERO.BULLET[i].BULLET_IMAGE, TRUE);
+					break;
+				}
+				if (HERO.BULLET[i].SBP - 800 > HERO.BULLET[i].y){
+					_Init_PLAYER_BULLET(i);
+				}
 				HERO.BULLET[i].y -= HERO.BULLET[i].movement;
 			}
 		}
